@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Ventas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'concesionario/css/styles.css' %}"></head>
+<body>
+    <h1>Lista de Ventas</h1>
+    <ul>
+        {% for venta in ventas %}
+            <li>Fecha: {{ venta.fecha_venta }} - Coche: {{ venta.coche }} - Cliente: {{ venta.cliente }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if ventas.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ ventas.previous_page_number }}">Anterior</a>
+            {% endif %}
+
+            <span class="current">
+                Página {{ ventas.number }} de {{ ventas.paginator.num_pages }}.
+            </span>
+
+            {% if ventas.has_next %}
+                <a href="?page={{ ventas.next_page_number }}">Siguiente</a>
+                <a href="?page={{ ventas.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
